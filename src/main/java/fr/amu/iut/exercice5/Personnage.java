@@ -18,52 +18,71 @@ class Personnage extends Group {
     }
 
     public void deplacerAGauche() {
-        //    ****
-        //   *    *
-        //  *---   *
-        //   *    *
-        //    ****
-
-        //déplacement <----
+        double oldX = getLayoutX();
+        double oldY = getLayoutY();
         if (getLayoutX() >= LARGEUR_PERSONNAGE) {
             setLayoutX(getLayoutX() - LARGEUR_PERSONNAGE);
         }
         if (!direction.equals("gauche")) {
             direction = "gauche";
         }
+        for (javafx.scene.Node node : getParent().getChildrenUnmodifiable()) {
+            if (node instanceof Obstacle && this.getBoundsInParent().intersects(node.getBoundsInParent())) {
+                setLayoutX(oldX);
+                setLayoutY(oldY);
+            }
+        }
     }
 
     public void deplacerADroite(double largeurJeu) {
-        //    ****
-        //   *    *
-        //  *   ---*
-        //   *    *
-        //    ****
-        //déplacement ---->
+        double oldX = getLayoutX();
+        double oldY = getLayoutY();
         if (getLayoutX() < largeurJeu - LARGEUR_PERSONNAGE) {
             setLayoutX(getLayoutX() + LARGEUR_PERSONNAGE);
         }
         if (!direction.equals("droite")) {
             direction = "droite";
         }
+        for (javafx.scene.Node node : getParent().getChildrenUnmodifiable()) {
+            if (node instanceof Obstacle && this.getBoundsInParent().intersects(node.getBoundsInParent())) {
+                setLayoutX(oldX);
+                setLayoutY(oldY);
+            }
+        }
     }
 
     public void deplacerEnBas(double hauteurJeu) {
-        //    *****
-        //   *     *
-        //  *   |   *
-        //   *  |  *
-        //    *****
-
+        double oldX = getLayoutX();
+        double oldY = getLayoutY();
+        if (getLayoutY() < hauteurJeu - LARGEUR_PERSONNAGE) {
+            setLayoutY(getLayoutY() + LARGEUR_PERSONNAGE);
+        }
+        if (!direction.equals("bas")) {
+            direction = "bas";
+        }
+        for (javafx.scene.Node node : getParent().getChildrenUnmodifiable()) {
+            if (node instanceof Obstacle && this.getBoundsInParent().intersects(node.getBoundsInParent())) {
+                setLayoutX(oldX);
+                setLayoutY(oldY);
+            }
+        }
     }
 
     public void deplacerEnHaut() {
-        //    *****
-        //   *  |  *
-        //  *   |   *
-        //   *     *
-        //    *****
-
+        double oldX = getLayoutX();
+        double oldY = getLayoutY();
+        if (getLayoutY() >= LARGEUR_PERSONNAGE) {
+            setLayoutY(getLayoutY() - LARGEUR_PERSONNAGE);
+        }
+        if (!direction.equals("haut")) {
+            direction = "haut";
+        }
+        for (javafx.scene.Node node : getParent().getChildrenUnmodifiable()) {
+            if (node instanceof Obstacle && this.getBoundsInParent().intersects(node.getBoundsInParent())) {
+                setLayoutX(oldX);
+                setLayoutY(oldY);
+            }
+        }
     }
 
     boolean estEnCollision(Personnage autrePersonnage) {
